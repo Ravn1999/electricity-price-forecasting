@@ -62,13 +62,8 @@ dev.off()
 
 #ACF & PACF
 
-# Box-Cox transformation (lambda = 0.5)
-min_price <- min(dk1_daily$price)
-dk1_bc <- sqrt(dk1_daily$price + abs(min_price) + 1)
-
 # Differensering (lag 1)
 dk1_diff <- diff(dk1_daily$price, lag = 1)
-dk1_bc_diff <- diff(dk1_bc, lag = 1)
 
 # Datoer efter differensering
 dates_diff <- dk1_daily$date[-1]
@@ -91,16 +86,6 @@ pacf(dk1_diff, lag.max = 50, main = "PACF of Differenced Series")
 dev.copy(png, "output/02_acf_pacf_diff.png", width = 1500, height = 500)
 dev.off()
 
-# Plot 3: Box-Cox + differenseret
-par(mfrow = c(3, 1))
-plot(dates_diff, dk1_bc_diff, type = "l",
-     main = "Box-Cox-Transformed and Differenced Series",
-     xlab = "Time", ylab = "Price (EUR)")
-acf(dk1_bc_diff, lag.max = 50, main = "ACF of Box-Cox-Transformed and Differenced Series")
-pacf(dk1_bc_diff, lag.max = 50, main = "PACF of Box-Cox-Transformed and Differenced Series")
-dev.copy(png, "output/02_acf_pacf_bc_diff.png", width = 1500, height = 500)
-dev.off()
-
 par(mfrow = c(1, 1))
 
 #unit root testing
@@ -115,14 +100,13 @@ library(grid)
 library(gtable)
 
 serier <- list(
-  "Original Series"            = dk1_daily$price,
-  "Differenced Series"         = dk1_diff,
-  "Box-Cox-Transformed Series" = dk1_bc_diff
+  "Original Series"    = dk1_daily$price,
+  "Differenced Series" = dk1_diff
 )
 
 # Kør tests
 rows <- list()
-for (test_navn in c("ADF", "PP", "KPSS")) {
+for (test_navn in c("ADF", "KPSS")) {
   stat_row   <- c(Test = test_navn, Type = "Statistic")
   lag_row    <- c(Test = "",        Type = "Lag order")
   pval_row   <- c(Test = "",        Type = "p-value")
@@ -177,18 +161,18 @@ png("output/03_stationarity_tests.png", width = 1100, height = 500, res = 100)
 grid.newpage()
 
 # Vandrette linjer: top, under header, efter hver testblok, bund
-hlines <- c(1, 5, 9)
+hlines <- c(1, 5)
 
 for (y in hlines) {
   tbl <- gtable_add_grob(tbl,
                          grobs = segmentsGrob(x0 = 0, x1 = 1, y0 = 0, y1 = 0,
                                               gp = gpar(lwd = 1.5)),
-                         t = y, b = y, l = 1, r = 5
+                         t = y, b = y, l = 1, r = 4
   )
 }
 
 # Lodrette linjer
-for (x in 1:4) {
+for (x in 1:3) {
   tbl <- gtable_add_grob(tbl,
                          grobs = segmentsGrob(x0 = 1, x1 = 1, y0 = 0, y1 = 1,
                                               gp = gpar(lwd = 1.5)),
