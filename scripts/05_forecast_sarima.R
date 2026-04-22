@@ -104,3 +104,31 @@ cat(sprintf("Expanding RMSE: %.2f\n", rmse_exp))
 cat(sprintf("Expanding MAE:  %.2f\n", mae_exp))
 cat(sprintf("Statisk   RMSE: %.2f\n", rmse))
 cat(sprintf("Statisk   MAE:  %.2f\n", mae))
+
+# ── 8. Histogram af residualer ────────────────────────────────
+resid_static    <- fc_df$actual        - fc_df$mean
+resid_expanding <- expanding_df$actual - expanding_df$mean
+
+# Statisk
+ggplot(data.frame(residual = resid_static), aes(x = residual)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "steelblue", alpha = 0.7) +
+  stat_function(fun  = dnorm,
+                args = list(mean = mean(resid_static), sd = sd(resid_static)),
+                colour = "black", linewidth = 1) +
+  labs(x = "Residuals (EUR/MWh)", y = "Density") +
+  theme_bw()
+
+ggsave("output/05_residuals_histogram_static.png", width = 10, height = 5)
+cat("Statisk histogram gemt!\n")
+
+# Expanding window
+ggplot(data.frame(residual = resid_expanding), aes(x = residual)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "steelblue", alpha = 0.7) +
+  stat_function(fun  = dnorm,
+                args = list(mean = mean(resid_expanding), sd = sd(resid_expanding)),
+                colour = "black", linewidth = 1) +
+  labs(x = "Residuals (EUR/MWh)", y = "Density") +
+  theme_bw()
+
+ggsave("output/05_residuals_histogram_expanding.png", width = 10, height = 5)
+cat("Expanding histogram gemt!\n")
