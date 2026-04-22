@@ -140,6 +140,7 @@ resid_df <- data.frame(
 
 ggplot(resid_df, aes(x = date, y = resid)) +
   geom_line(colour = "steelblue") +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
   labs(x = "Time",
        y = "Residuals (EUR/MWh)") +
   theme_bw()
