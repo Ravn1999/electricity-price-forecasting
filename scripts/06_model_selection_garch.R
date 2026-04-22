@@ -47,5 +47,28 @@ garch_tabel <- do.call(rbind, Filter(Negate(is.null), resultater))
 garch_tabel <- garch_tabel[order(garch_tabel$AIC), ]
 
 print(head(garch_tabel, 10))
-write.csv(garch_tabel, "data/garch_grid_results.csv", row.names = FALSE)
+write.csv(garch_tabel,10, "data/garch_grid_results.csv", row.names = FALSE)
+cat("Gemt!\n")
+
+# ── 5. Fit den valgte GARCH(1,1) std model ───────────────────
+garch_spec <- ugarchspec(
+  variance.model     = list(model = "sGARCH", garchOrder = c(1, 1)),
+  mean.model         = list(armaOrder = c(0, 0), include.mean = FALSE),
+  distribution.model = "std"
+)
+
+garch_valgt <- ugarchfit(garch_spec, data = residualer, solver = "hybrid")
+
+# ── 6. Koefficienter ──────────────────────────────────────────
+koef <- coef(garch_valgt)
+se   <- garch_valgt@fit$matcoef[, 2]
+
+koef_df <- data.frame(
+  Coefficient = names(koef),
+  Estimate    = round(koef, 4),
+  Std.Error   = round(se, 4)
+)
+
+print(koef_df)
+write.csv(koef_df, "data/garch_koefficienter.csv", row.names = FALSE)
 cat("Gemt!\n")
