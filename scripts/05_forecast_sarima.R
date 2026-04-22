@@ -132,3 +132,31 @@ ggplot(data.frame(residual = resid_expanding), aes(x = residual)) +
 
 ggsave("output/05_residuals_histogram_expanding.png", width = 10, height = 5)
 cat("Expanding histogram gemt!\n")
+
+resid_df <- data.frame(
+  date  = expanding_df$date,
+  resid = resid_expanding
+)
+
+ggplot(resid_df, aes(x = date, y = resid)) +
+  geom_line(colour = "steelblue") +
+  labs(x = "Time",
+       y = "Residuals (EUR/MWh)") +
+  theme_bw()
+
+ggsave("output/05_residuals_expanding.png", width = 10, height = 5)
+cat("Gemt!\n")
+
+lb_resid_df <- data.frame(
+  lag     = 1:20,
+  p_value = sapply(1:20, function(h) Box.test(resid_expanding, lag = h, type = "Ljung-Box")$p.value)
+)
+
+ggplot(lb_resid_df, aes(x = lag, y = p_value)) +
+  geom_point() +
+  geom_hline(yintercept = 0.05, linetype = "dashed", colour = "blue") +
+  labs(x = "Lag",
+       y = "p-value") +
+  theme_bw()
+ggsave("output/05_ljung_box_residuals_expanding.png", width = 10, height = 5)
+cat("Gemt!\n")
