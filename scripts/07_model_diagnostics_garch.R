@@ -67,3 +67,17 @@ p3 <- ggplot(std_resid_df, aes(x = resid)) +
 p3
 ggsave("output/07_std_residuals_histo.png", width = 10, height = 5)
 cat("Gemt!\n")
+
+ljung_df_sq <- data.frame(
+  lag     = 1:20,
+  p_value = sapply(1:20, function(h) Box.test(std_resid^2, lag = h, type = "Ljung-Box")$p.value)
+)
+
+ggplot(ljung_df_sq, aes(x = lag, y = p_value)) +
+  geom_point() +
+  geom_hline(yintercept = 0.05, linetype = "dashed", colour = "blue") +
+  labs(x = "Lag", y = "p-value") +
+  theme_bw()
+
+ggsave("output/07_ljung_box_garch_sq.png", width = 10, height = 5)
+cat("Gemt!\n")
