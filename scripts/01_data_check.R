@@ -55,9 +55,13 @@ dev.off()
 plot(dk1_daily$date, dk1_daily$price, type = "l", col = "black",
      main = "DK1 - Daily Average", xlab = "Time", ylab = "EUR/MWh",
      xlim = as.Date(c("2018-01-01", "2025-09-30")),
-     xaxt = "n")
-axis.Date(1, at = as.Date(paste0(2018:2025, "-01-01")), 
-          labels = 2018:2025)
+     xaxt = "n",
+     cex.axis = 1.8,   # aksetick-labels
+     cex.lab  = 1.8)   # aksebetegnelser (xlab/ylab)
+
+axis(1, at = as.Date(paste0(2018:2025, "-01-01")),
+     labels = 2018:2025,
+     cex.axis = 1.8)
 dev.copy(png, "output/01_dk1_daily.png", width = 1200, height = 400)
 dev.off()
 
@@ -75,9 +79,12 @@ dev.off()
 plot(dk1_daily$date, dk1_daily$rolling, type = "l", col = "black",
      main = "DK1 - 30-Day Rolling Average", xlab = "Time", ylab = "EUR/MWh",
      xlim = as.Date(c("2018-01-01", "2025-09-30")),
-     xaxt = "n")
+     xaxt = "n",
+     cex.axis = 1.8,   # aksetick-labels
+     cex.lab  = 1.8)
 axis.Date(1, at = as.Date(paste0(2018:2025, "-01-01")), 
-          labels = 2018:2025)
+          labels = 2018:2025,
+          cex.axis = 1.8)
 dev.copy(png, "output/01_dk1_rolling.png", width = 1200, height = 400)
 dev.off()
 
@@ -85,8 +92,11 @@ dev.off()
 plot(no2_daily$date, no2_daily$rolling, type = "l", col = "black",
      main = "NO2 - 30-Day Rolling Average", xlab = "Time", ylab = "EUR/MWh",
      xlim = as.Date(c("2018-01-01", "2025-09-30")),
-     xaxt = "n")
+     xaxt = "n",
+     cex.axis = 1.8,   # aksetick-labels
+     cex.lab  = 1.8)
 axis.Date(1, at = as.Date(paste0(2018:2025, "-01-01")), 
-          labels = 2018:2025)
+          labels = 2018:2025,
+          cex.axis = 1.8)
 dev.copy(png, "output/01_no2_rolling.png", width = 1200, height = 400)
 dev.off()

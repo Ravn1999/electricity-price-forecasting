@@ -176,7 +176,7 @@ for (x in 1:3) {
   tbl <- gtable_add_grob(tbl,
                          grobs = segmentsGrob(x0 = 1, x1 = 1, y0 = 0, y1 = 1,
                                               gp = gpar(lwd = 1.5)),
-                         t = 1, b = 13, l = x, r = x
+                         t = 1, b = 9, l = x, r = x
   )
 }
 
