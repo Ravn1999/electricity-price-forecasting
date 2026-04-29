@@ -77,18 +77,24 @@ dates_diff <- dk1_daily$date[-1]
 # Plot 1: Original
 par(mfrow = c(3, 1))
 plot(dk1_daily$date, dk1_daily$price, type = "l",
-     main = "Original Series", xlab = "Time", ylab = "Price (EUR)")
-acf(dk1_daily$price, lag.max = 50, main = "ACF of Original Series")
-pacf(dk1_daily$price, lag.max = 50, main = "PACF of Original Series")
+     main = "Original Series", xlab = "Time", ylab = "Price (EUR)",
+     cex.axis = 1.8, cex.lab = 1.8)
+acf(dk1_daily$price, lag.max = 50, main = "ACF of Original Series",
+    cex.axis = 1.8, cex.lab = 1.8)
+pacf(dk1_daily$price, lag.max = 50, main = "PACF of Original Series",
+     cex.axis = 1.8, cex.lab = 1.8)
 dev.copy(png, "output/02_acf_pacf_raw.png", width = 1500, height = 500)
 dev.off()
 
 # Plot 2: Differenseret
 par(mfrow = c(3, 1))
 plot(dates_diff, dk1_diff, type = "l",
-     main = "Differenced Series", xlab = "Time", ylab = "Price (EUR)")
-acf(dk1_diff, lag.max = 50, main = "ACF of Differenced Series")
-pacf(dk1_diff, lag.max = 50, main = "PACF of Differenced Series")
+     main = "Differenced Series", xlab = "Time", ylab = "Price (EUR)",
+     cex.axis = 1.8, cex.lab = 1.8)
+acf(dk1_diff, lag.max = 50, main = "ACF of Differenced Series",
+    cex.axis = 1.8, cex.lab = 1.8)
+pacf(dk1_diff, lag.max = 50, main = "PACF of Differenced Series",
+     cex.axis = 1.8, cex.lab = 1.8)
 dev.copy(png, "output/02_acf_pacf_diff.png", width = 1500, height = 500)
 dev.off()
 
