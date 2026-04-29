@@ -47,7 +47,7 @@ dev.off()
 
 # Distribution by Hour
 boxplot(price ~ hour, data = dk1,
-        main = "Distribution by Hour", xlab = "Hour", ylab = "EUR/MWh",
+        main = "Distribution by Hour", xlab = "", ylab = "EUR/MWh",
         cex.axis = 1.8, cex.lab = 1.8)
 dev.copy(png, "output/02_season_hour_box.png", width = 1000, height = 500)
 dev.off()
@@ -61,7 +61,8 @@ dk1_ts <- msts(dk1_daily$price, seasonal.periods = c(7, 365),
 
 dk1_mstl <- mstl(dk1_ts)
 
-plot(dk1_mstl, main = "DK1 - MSTL Decomposition", nc = 1)
+plot(dk1_mstl, main = "DK1 - MSTL Decomposition", nc = 1,
+     cex.axis = 1.8, cex.lab = 1.8)
 dev.copy(png, "output/02_mstl.png", width = 1000, height = 1200)
 dev.off()
 
