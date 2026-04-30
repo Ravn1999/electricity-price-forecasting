@@ -33,10 +33,11 @@ ggplot(fc_df, aes(x = date)) +
   geom_line(aes(y = actual, colour = "Actual")) +
   geom_line(aes(y = mean,   colour = "Forecast")) +
   scale_colour_manual(values = c("Actual" = "black", "Forecast" = "steelblue")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
   labs(x      = "Time",
        y      = "EUR/MWh",
        colour = "") +
-  theme_bw()
+  theme_bw() 
 
 ggsave("output/05_static_forecast.png", width = 10, height = 5)
 cat("Gemt!\n")
@@ -88,6 +89,7 @@ ggplot(expanding_df, aes(x = date)) +
   geom_line(aes(y = actual,  colour = "Actual")) +
   geom_line(aes(y = mean,    colour = "Forecast")) +
   scale_colour_manual(values = c("Actual" = "black", "Forecast" = "steelblue")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
   labs(x      = "Time",
        y      = "EUR/MWh",
        colour = "") +

@@ -83,7 +83,7 @@ acf(dk1_daily$price, lag.max = 50, main = "ACF of Original Series",
     cex.axis = 1.8, cex.lab = 1.8)
 pacf(dk1_daily$price, lag.max = 50, main = "PACF of Original Series",
      cex.axis = 1.8, cex.lab = 1.8)
-dev.copy(png, "output/02_acf_pacf_raw.png", width = 1500, height = 500)
+dev.copy(png, "output/02_acf_pacf_raw.png", width = 1000, height = 1200)
 dev.off()
 
 # Plot 2: Differenseret
@@ -95,7 +95,7 @@ acf(dk1_diff, lag.max = 50, main = "ACF of Differenced Series",
     cex.axis = 1.8, cex.lab = 1.8)
 pacf(dk1_diff, lag.max = 50, main = "PACF of Differenced Series",
      cex.axis = 1.8, cex.lab = 1.8)
-dev.copy(png, "output/02_acf_pacf_diff.png", width = 1500, height = 500)
+dev.copy(png, "output/02_acf_pacf_diff.png", width = 1000, height = 1200)
 dev.off()
 
 par(mfrow = c(1, 1))
